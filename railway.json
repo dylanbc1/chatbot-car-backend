@@ -1,8 +1,10 @@
 {
   "build": {
     "commands": [
+	  "echo 'Ejecutando setup_reqs.sh...'",
       "chmod +x setup_reqs.sh",
-      "./setup_reqs.sh"
+      "bash ./setup_reqs.sh",
+	  "echo 'Terminado setup_reqs.sh.'",
     ]
   }
 }
