@@ -14,16 +14,27 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from pydantic import BaseModel, EmailStr
 from typing import Dict, Optional, List, Any
+from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
 import secrets
 import pgmpy
 from dotenv import load_dotenv
 
+
 # Cargar variables de entorno
 load_dotenv()
 
 app = FastAPI(title="Car Expert System API")
+
+# Habilitar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"], 
+)
 
 # Configuración de la base de datos
 SQLALCHEMY_DATABASE_URL = os.getenv("DB_URL")
