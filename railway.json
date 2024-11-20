@@ -1,8 +1,8 @@
 {
   "build": {
     "commands": [
-      "chmod +x setup_reqs.sh",   // Ajustar permisos al script
-      "./setup_reqs.sh"           // Ejecutar el script
+      "chmod +x setup_reqs.sh",
+      "./setup_reqs.sh"
     ]
   }
 }
