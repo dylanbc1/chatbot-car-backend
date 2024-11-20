@@ -1,19 +1,28 @@
 #!/bin/bash
 
-# Instalar experta, lo cual instala frozendict==1.2
+# Activar el entorno virtual creado por Railway
+source /opt/venv/bin/activate
+
+# Instalar experta primero, lo que requiere frozendict==1.2
+echo "Instalando experta..."
 pip install experta
 
-# Desinstalar la versión incompatible de frozendict
+# Desinstalar la versión de frozendict instalada por experta
+echo "Eliminando frozendict==1.2..."
 pip uninstall -y frozendict
 
-# Instalar la versión actualizada de frozendict requerida por yfinance
-pip install --upgrade frozendict
+# Instalar la versión más reciente de frozendict requerida por yfinance
+echo "Instalando frozendict>=2.3.4..."
+pip install frozendict>=2.3.4
 
-# Desinstalar yfinance para evitar conflictos
+# Reinstalar yfinance para que sea compatible con la versión actual de frozendict
+echo "Reinstalando yfinance..."
 pip uninstall -y yfinance
-
-# Reinstalar yfinance para que funcione con la versión correcta de frozendict
 pip install yfinance
 
-# Instalar el resto de las dependencias del proyecto
+# Instalar el resto de las dependencias
+echo "Instalando dependencias del requirements.txt..."
 pip install -r requirements.txt
+
+# Mensaje final
+echo "Instalación completada. Dependencias resueltas."
