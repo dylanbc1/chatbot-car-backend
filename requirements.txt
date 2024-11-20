@@ -3,7 +3,7 @@ fastapi==0.103.2
 pydantic==2.4.2
 typing-extensions==4.8.0
 experta==1.9.4
-frozendict==2.3.8
+frozendict==1.2
 yfinance==0.2.31
 pgmpy==0.1.22
 sqlalchemy==2.0.21
