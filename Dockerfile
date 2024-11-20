@@ -18,7 +18,8 @@ RUN /opt/venv/bin/pip install --upgrade pip
 RUN /opt/venv/bin/pip install -r requirements.txt
 
 # Ejecuta el script de configuración personalizado (si es necesario)
-RUN /opt/venv/bin/bash ./setup_reqs.sh
+RUN /bin/bash ./setup_reqs.sh
+
 
 # Exponer el puerto 8000 para FastAPI (por defecto usa este puerto)
 EXPOSE 8000
