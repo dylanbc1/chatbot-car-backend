@@ -1,4 +1,5 @@
 from brake_system import BrakeDiagnostic, BrakeProblem
+from start_system import StartDiagnostic, StartProblem
 from experta import Fact
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi import Body
@@ -185,14 +186,26 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
+class DiagnosticType(BaseModel):
+    diagnostic_type: str
+
 @app.post("/api/diagnostic/start")
-async def start_diagnostic(current_user: User = Depends(get_current_user)):
+async def start_diagnostic(diagnostic_type: DiagnosticType, current_user: User = Depends(get_current_user)):
     """Inicia una nueva sesión de diagnóstico"""
     session_id = str(len(sessions) + 1)
     session = DiagnosticSession()
-    engine = BrakeDiagnostic()
-    engine.reset()
-    engine.declare(Fact(action="diagnose_brakes"))
+
+    engine = None
+
+    if (diagnostic_type.diagnostic_type == "brake"):
+        engine = BrakeDiagnostic()
+        engine.reset()
+        engine.declare(Fact(action="diagnose_brakes"))
+    elif (diagnostic_type.diagnostic_type == "start"):
+        engine = StartDiagnostic()
+        engine.reset()
+        engine.declare(Fact(action="diagnose"))
+    
     engine.run()  # Esto activará la primera regla
     
     session.engine = engine
