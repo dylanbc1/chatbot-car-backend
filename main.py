@@ -263,9 +263,10 @@ async def get_diagnostic_status(session_id: str, current_user: User = Depends(ge
         "completed": session.engine.diagnostic_complete
     }
 
-@app.get("/api/diagnostic/sessions", response_model=List[Dict[str, Any]])
+@app.post("/api/diagnostic/sessions", response_model=List[Dict[str, Any]])
 async def get_user_diagnostics(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     sessions = db.query(DiagnosticSessionRecord).filter(DiagnosticSessionRecord.user_id == current_user.id).all()
+    
     return [
         {
             "id": session.id,
