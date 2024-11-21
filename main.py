@@ -1,5 +1,6 @@
 from brake_system import BrakeDiagnostic, BrakeProblem
 from start_system import StartDiagnostic, StartProblem
+from sounds_system import SoundDiagnostic, SoundProblem
 from experta import Fact
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi import Body
@@ -205,6 +206,11 @@ async def start_diagnostic(diagnostic_type: DiagnosticType, current_user: User =
         engine = StartDiagnostic()
         engine.reset()
         engine.declare(Fact(action="diagnose"))
+    elif (diagnostic_type.diagnostic_type == "sound"):
+        engine = SoundDiagnostic()
+        engine.reset()
+        engine.declare(Fact(action="sound"))
+
     
     engine.run()  # Esto activará la primera regla
     
